@@ -3,13 +3,23 @@
   background-color: var(--secondary-brand);
   display: flex;
   height: 3rem;
-  width: 3rem;
+  padding: 1rem;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  border: none;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  
+  transition: all 0.3s ease-in-out;
+  color: var(--primary-background-color);
+
+  span {
+    font-weight: bold;
+    padding: 0 0 0 0.5rem;
+  }
+
   &:hover {
-    transition: all 0.2s linear;
     background-color: var(--secondary-brand);
   }
 

@@ -49,14 +49,16 @@ function App() {
         {data && data.map((card, idx) => <Card {...card} onRemove={() => deleteCard(card.id)} key={idx} />)}
       </div>
 
+      <AddCardButton />
 
-      {adding && (
+
+      {/* {adding && (
         <div>
           <input placeholder="Enter Card Title" value={cardTitle} onChange={e => setCardTitle(e.target.value)} />
           <input placeholder="Enter Card Description" value={cardDescription} onChange={e => setCardDescription(e.target.value)} />
           <button onClick={() => submitCard()}>Submit</button>
         </div>
-      )}
+      )} */}
     </div>
   )
 }

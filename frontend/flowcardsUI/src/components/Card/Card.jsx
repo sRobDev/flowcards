@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { removeCard } from '../../services/flow.service';
 import { 
   DeleteIcon,
@@ -6,18 +6,17 @@ import {
 } from '../../assets/icons';
 import {
   container,
-  divider,
+  body,
   controls
 } from './card.module.scss';
 export default function Card({title, content, topic, onRemove}) {
+  const [showContent, setShowContent] = useState(false);
 
   return (
-    <div className={container}>
-      <div>
-        <h3>{title}</h3>
-        <div className={divider}>&nbsp;</div>
+    <div className={container} onClick={() => setShowContent(!showContent)}>
+      <div className={body}>
+        {showContent ? content : title}
       </div>
-      <p>{content}</p>
 
       <div className={controls}>
         <button onClick={onRemove}><DeleteIcon/></button>
