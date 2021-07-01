@@ -1,4 +1,4 @@
-# Flowcards
+# Flowcards (Major Work-in-Progress!)
 Simple and fast flashcards app built for [Digital Ocean's MongoDB Hackathon](https://www.digitalocean.com/mongodb-hackathon/).
 
 ## Stack:
