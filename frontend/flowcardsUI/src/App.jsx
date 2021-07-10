@@ -3,10 +3,15 @@ import './App.css'
 import Navbar from './components/Navbar/Navbar';
 import Card from './components/Card/Card';
 import AddCardButton from './components/AddCardButton/AddCardButton';
-import { removeCard, getAllCards } from './services/flow.service';
+import { removeCard, getAllCards, saveCard } from './services/flow.service';
 
 function App() {
   const [cards, setCards] = useState(null);
+
+  const saveNewCard = async (data) => {
+    await saveCard(data);
+    fetchCards();
+  }
 
   const deleteCard = async (idx) => {
     await removeCard(cards[idx]);
@@ -28,7 +33,7 @@ function App() {
         })}
       </div>
 
-      <AddCardButton />
+      <AddCardButton onSave={(data) => saveNewCard(data)}/>
     </div>
   )
 }
