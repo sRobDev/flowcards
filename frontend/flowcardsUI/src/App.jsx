@@ -3,62 +3,32 @@ import './App.css'
 import Navbar from './components/Navbar/Navbar';
 import Card from './components/Card/Card';
 import AddCardButton from './components/AddCardButton/AddCardButton';
-import { removeCard } from './services/flow.service';
-function App() {
-  const [data, setData] = useState(null);
-  const [cardTitle, setCardTitle] = useState('');
-  const [cardDescription, setCardDescription] = useState('');
-  const [adding, setAdding] = useState(false);
+import { removeCard, getAllCards } from './services/flow.service';
 
-  const deleteCard = (id) => {
-    removeCard(id);
-    fetchData();
+function App() {
+  const [cards, setCards] = useState(null);
+
+  const deleteCard = async (idx) => {
+    await removeCard(cards[idx]);
+    fetchCards();
   };
 
-  const fetchData = async () => {
-    const res = await (await fetch('http://localhost:3001/v2/cards/all/')).json();
-    setData(res);
-  }
-
-  const submitNewCard = async (data) => {
-    const res = await (await fetch('http://localhost:3001/card/new/1', {
-      method: 'POST', 
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })).json();
-
-    fetchData();
-  }
-
-  const submitCard = () => {
-    setAdding(false);
-    submitNewCard({title: cardTitle, content: cardDescription});
-  }
+  const fetchCards = async () => setCards(await getAllCards());
   
   useEffect(() => {
-    fetchData();
+    fetchCards();
   }, []);
 
   return (
     <div className="App">
       <Navbar />
-      {/* Body */}
       <div className="card-row">
-        {data && data.map((card, idx) => <Card {...card} onRemove={() => deleteCard(card.id)} key={idx} />)}
+        {cards && cards.map((card, idx) => {
+          return <Card {...card} onRemove={() => deleteCard(idx)} key={idx} />
+        })}
       </div>
 
       <AddCardButton />
-
-
-      {/* {adding && (
-        <div>
-          <input placeholder="Enter Card Title" value={cardTitle} onChange={e => setCardTitle(e.target.value)} />
-          <input placeholder="Enter Card Description" value={cardDescription} onChange={e => setCardDescription(e.target.value)} />
-          <button onClick={() => submitCard()}>Submit</button>
-        </div>
-      )} */}
     </div>
   )
 }

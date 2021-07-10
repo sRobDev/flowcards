@@ -1,19 +1,25 @@
 import { api } from '../../config.json';
 
-async function getCard(id) {
+const {
+  url,
+  getAllCards: getAllCardsEndpoint,
+  deleteCard,
+} = api;
+
+function getAllCards() {
   try {
-    
+    return fetch(url + getAllCardsEndpoint).then(res => res.json()).then(data => data);
   } catch (e) {
     console.error(e);
   }
 }
 
-function removeCard(id) {
+function removeCard({ _id }) {
   try {
-    fetch(api.url + api.cardDeleteEp + id, { method: 'POST' }).then(res => res.json()).then(data => data);
+    return fetch(url + deleteCard + _id, { method: 'POST' }).then(res => res.json()).then(data => data);
   } catch (error) {
     console.error(error);
   }
 }
 
-export { removeCard }
+export { getAllCards, removeCard }

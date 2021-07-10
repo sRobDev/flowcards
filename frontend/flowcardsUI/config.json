@@ -1,6 +1,7 @@
 {
   "api": {
     "url": "http://localhost:3001/",
-    "cardDeleteEp": "card/delete/"
+    "getAllCards": "v2/cards/all",
+    "deleteCard": "v2/card/delete/"
   }
 }

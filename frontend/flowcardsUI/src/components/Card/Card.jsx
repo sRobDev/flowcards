@@ -13,8 +13,8 @@ export default function Card({title, content, topic, onRemove}) {
   const [showContent, setShowContent] = useState(false);
 
   return (
-    <div className={container} onClick={() => setShowContent(!showContent)}>
-      <div className={body}>
+    <div className={container}>
+      <div className={body} onClick={() => setShowContent(!showContent)}>
         {showContent ? content : title}
       </div>
 
