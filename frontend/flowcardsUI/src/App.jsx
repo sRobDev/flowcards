@@ -16,7 +16,7 @@ function App() {
   };
 
   const fetchData = async () => {
-    const res = await (await fetch('http://localhost:3001/cards/all/1')).json();
+    const res = await (await fetch('http://localhost:3001/v2/cards/all/')).json();
     setData(res);
   }
 

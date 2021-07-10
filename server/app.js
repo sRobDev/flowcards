@@ -26,7 +26,7 @@ router.get('/', hello)
   .get('/v2/user/:id', getUser)
 
   .post('/v2/card/new', createCard)
-  .get('/v2/cards/all/:authorId', getAllCards)
+  .get('/v2/cards/all', getAllCards)
   .post('/v2/card/delete/:id', deleteCard)
   .put('/v2/card/:id/update', updateCard)
   .get('/v2/card/:id', getCard)
@@ -59,7 +59,7 @@ async function createUser(ctx) {
 }
 
 async function getAllCards(ctx) {
-  ctx.body = await Card.find({ authorId: ctx.params.authorId });
+  ctx.body = await Card.find();
 }
 
 async function getCard(ctx) {
