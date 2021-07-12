@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { removeCard } from '../../services/flow.service';
 import { 
   DeleteIcon,
   EditIcon
@@ -9,8 +8,16 @@ import {
   body,
   controls
 } from './card.module.scss';
-export default function Card({title, content, topic, onRemove}) {
+
+import {
+  useDisclosure
+} from '@chakra-ui/react';
+
+import EditCardModal from '../EditCardModal';
+
+export default function Card({title, content, _id: id, topic, onRemove}) {
   const [showContent, setShowContent] = useState(false);
+  const { onOpen, isOpen, onClose } = useDisclosure();
 
   return (
     <div className={container}>
@@ -20,8 +27,10 @@ export default function Card({title, content, topic, onRemove}) {
 
       <div className={controls}>
         <button onClick={onRemove}><DeleteIcon/></button>
-        <button><EditIcon/></button>
+        <button onClick={onOpen}><EditIcon/></button>
       </div>
+
+      <EditCardModal title={title} content={content} id={id} isOpen={isOpen} onClose={onClose} />
     </div>
   )
 }

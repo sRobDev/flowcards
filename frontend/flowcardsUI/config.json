@@ -2,6 +2,8 @@
   "api": {
     "url": "http://localhost:3001/",
     "getAllCards": "v2/cards/all",
-    "deleteCard": "v2/card/delete/"
+    "createCard": "v2/card/new",
+    "deleteCard": "v2/card/delete/",
+    "updateCard": "v2/card/update/"
   }
 }

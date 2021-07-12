@@ -3,8 +3,26 @@ import { api } from '../../config.json';
 const {
   url,
   getAllCards: getAllCardsEndpoint,
+  updateCard,
+  createCard,
   deleteCard,
 } = api;
+
+function saveCard(data) {
+  const { id = null, ...rest } = data;
+  let endpoint = data.id ? updateCard + data.id : createCard;
+  try {
+    return fetch(url + endpoint, { 
+      method: id ? 'PUT' : 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(rest)
+     }).then(res => res.json()).then(card => card);
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 function getAllCards() {
   try {
@@ -22,4 +40,4 @@ function removeCard({ _id }) {
   }
 }
 
-export { getAllCards, removeCard }
+export { getAllCards, removeCard, saveCard }

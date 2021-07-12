@@ -1,25 +1,22 @@
-import React, { useState } from 'react';
-import {
-  CirclePlusIcon
-} from '../../assets/icons';
-import {
-  container
-} from './AddCardButton.module.scss';
-
-import Portal from '../Popup/Portal';
-import CreateCard from '../CreateCard/CreateCard';
+import React from 'react';
+import { CirclePlusIcon } from '../../assets/icons';
+import { container } from './AddCardButton.module.scss';
+import EditCardModal from '../EditCardModal';
+import { useDisclosure } from '@chakra-ui/react';
 
 export default function AddCardButton({
-  onClick
+  onSave
 }) {
-  const [showCreate, setShowCreate] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
     <>
-      <button className={container} onClick={() => setShowCreate(true)}>
+      <button className={container} onClick={onOpen}>
         <CirclePlusIcon />
         <span>Add Card</span>
       </button>
-      {showCreate && <Portal><CreateCard /></Portal>}
+
+      <EditCardModal onSave={onSave} isOpen={isOpen} onClose={onClose} />
     </>
   )
 }

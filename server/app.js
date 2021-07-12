@@ -28,7 +28,7 @@ router.get('/', hello)
   .post('/v2/card/new', createCard)
   .get('/v2/cards/all', getAllCards)
   .post('/v2/card/delete/:id', deleteCard)
-  .put('/v2/card/:id/update', updateCard)
+  .put('/v2/card/update/:id', updateCard)
   .get('/v2/card/:id', getCard)
   
   .post('/v2/topic/new/:authorId', createTopic)
@@ -71,7 +71,9 @@ async function deleteCard(ctx) {
 }
 
 async function updateCard(ctx) {
-  ctx.body = Card.updateOne({ _id: ctx.params.id }, ctx.request.body);
+  console.log('Turbo Console Log: updateCard -> ctx', ctx.params);
+  console.log('Turbo Console Log: updateCard -> ctx', ctx.request.body);
+  ctx.body = await Card.updateOne({ _id: ctx.params.id }, ctx.request.body);
 }
 
 async function getTopic(ctx) {
