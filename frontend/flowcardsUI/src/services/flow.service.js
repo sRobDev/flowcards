@@ -3,19 +3,21 @@ import { api } from '../../config.json';
 const {
   url,
   getAllCards: getAllCardsEndpoint,
+  updateCard,
   createCard,
   deleteCard,
 } = api;
 
 function saveCard(data) {
+  const { id = null, ...rest } = data;
+  let endpoint = data.id ? updateCard + data.id : createCard;
   try {
-    return fetch(url + createCard, { 
-      method: 'POST',
+    return fetch(url + endpoint, { 
+      method: id ? 'PUT' : 'POST',
       headers: {
         'Content-Type': 'application/json'
-        // 'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(rest)
      }).then(res => res.json()).then(card => card);
   } catch (error) {
     console.error(error);

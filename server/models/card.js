@@ -10,10 +10,12 @@ const cardSchema = new Schema({
     type: String,
     required: true
   },
-  topcId: {
+  topicId: {
     type: Number
+  },
+  authorId: {
+    type: String
   }
-  
 }, { timestamps: true });
 
 const Card = mongoose.model('Card', cardSchema);
