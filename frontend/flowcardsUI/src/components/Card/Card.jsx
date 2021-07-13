@@ -15,7 +15,7 @@ import {
 
 import EditCardModal from '../EditCardModal';
 
-export default function Card({title, content, _id: id, topic, onRemove}) {
+export default function Card({title, content, _id: id, topic, onRemove, index}) {
   const [showContent, setShowContent] = useState(false);
   const { onOpen, isOpen, onClose } = useDisclosure();
 
@@ -30,7 +30,7 @@ export default function Card({title, content, _id: id, topic, onRemove}) {
         <button onClick={onOpen}><EditIcon/></button>
       </div>
 
-      <EditCardModal title={title} content={content} id={id} isOpen={isOpen} onClose={onClose} />
+      <EditCardModal title={title} content={content} id={id} isOpen={isOpen} onClose={onClose} index={index}/>
     </div>
   )
 }

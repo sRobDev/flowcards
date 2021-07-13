@@ -71,9 +71,8 @@ async function deleteCard(ctx) {
 }
 
 async function updateCard(ctx) {
-  console.log('Turbo Console Log: updateCard -> ctx', ctx.params);
-  console.log('Turbo Console Log: updateCard -> ctx', ctx.request.body);
-  ctx.body = await Card.updateOne({ _id: ctx.params.id }, ctx.request.body);
+  let res = await Card.updateOne({ _id: ctx.params.id }, ctx.request.body);
+  if(res.ok) ctx.body = await Card.findOne({ _id: ctx.params.id });
 }
 
 async function getTopic(ctx) {

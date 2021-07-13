@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {
-  saveCard
+  saveCard,
+  updateCard
 } from '../services/flow.service';
 
 import {
@@ -16,16 +17,20 @@ import {
   FormLabel,
 } from '@chakra-ui/react';
 
-export default function EditCardModal({title, content, id, isOpen, onClose}) {
+export default function EditCardModal({title, content, id, isOpen, onClose, index}) {
   const [cardTitle, setCardTitle] = useState(title || '');
   const [cardContent, setCardContent] = useState(content || '');
 
   const handleSave = async () => {
-    await saveCard({
-      id: id || null,
+    let payload = {
       title: cardTitle,
       content: cardContent
-    });
+    }
+    if(id) await updateCard({
+        id: id,
+        ...payload
+      }, index);
+    else await saveCard(payload)
     handleClose();
   }
 

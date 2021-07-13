@@ -16,7 +16,7 @@ export default function AddCardButton({
         <span>Add Card</span>
       </button>
 
-      <EditCardModal onSave={onSave} isOpen={isOpen} onClose={onClose} />
+    <EditCardModal onSave={onSave} isOpen={isOpen} onClose={onClose} />
     </>
   )
 }
