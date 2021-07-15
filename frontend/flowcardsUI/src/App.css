@@ -3,9 +3,21 @@
   width: 100%;
 }
 
+/* .card-grid {
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+  align-items: stretch;
+  /* grid-gap:  */
+
+
+/* .card-grid > div {
+
+} */
+
 .card-row {
   display: flex;
-  flex: 1 1 auto;
+  max-width: auto;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: flex-start; 
 }
