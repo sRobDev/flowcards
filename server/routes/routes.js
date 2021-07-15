@@ -19,27 +19,8 @@ router.post(
       user: req.user
     })
   }
-)
+);
 
-// router.post(
-//   '/signup',
-//   async (req, res, next) => {
-//     passport.authenticate(
-//       'signup',
-//       async (err, user) => {
-//         console.log('Turbo Console Log: err, user', err, user);
-//         try {
-//           return res.json({
-//             message: 'User creation successful',
-//             user: user
-//           });
-//         } catch (error) {
-//           return next(error);
-//         }
-//       }
-//     )(req, res, next)
-//   }
-// )
 router.post(
   '/login',
   async (req, res, next) => {
