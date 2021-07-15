@@ -41,7 +41,7 @@ export default function EditCardModal({title, content, id, isOpen, onClose, inde
   }
 
   return (
-    <Modal blockScrollOnMount={true} isOpen={isOpen} onClose={onClose}>
+    <Modal returnFocusOnClose={false} blockScrollOnMount={true} isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Add a new card</ModalHeader>
