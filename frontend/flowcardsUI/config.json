@@ -4,6 +4,9 @@
     "getAllCardsApi": "v2/cards/all",
     "createCardApi": "v2/card/new",
     "deleteCardApi": "v2/card/delete/",
-    "updateCardApi": "v2/card/update/"
-  }
+    "updateCardApi": "v2/card/update/",
+    "createUserApi": "v2/user/new",
+    "getUserCardsApi": "v2/user/cards/"
+  },
+  "cookieName": "_fcid"
 }

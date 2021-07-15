@@ -7,6 +7,8 @@ const {
   updateCardApi,
   createCardApi,
   deleteCardApi,
+  createUserApi,
+  getUserCardsApi
 } = api;
 
 function saveCard(data) {  
@@ -53,4 +55,26 @@ function removeCard({ _id }) {
   }
 }
 
-export { getAllCards, removeCard, saveCard, updateCard }
+function createUser(data) {
+  try {
+    return fetch(url + createUserApi, { 
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+     }).then(res => res.json()).then(user => user);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+function getUserCards(data) {
+  try {
+    return fetch(url + getUserCardsApi).then(res => res.json()).then(data => data);
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+export { getAllCards, removeCard, saveCard, updateCard, createUser }

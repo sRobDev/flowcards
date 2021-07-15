@@ -24,6 +24,7 @@ mongoose.connect(DB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 router.get('/', hello)
   .post('/v2/user/new', createUser)
   .get('/v2/user/:id', getUser)
+  .get('/v2/user/cards/:authorId', getUserCards)
 
   .post('/v2/card/new', createCard)
   .get('/v2/cards/all', getAllCards)
@@ -56,6 +57,10 @@ async function getUser(ctx) {
 async function createUser(ctx) {
   const user = new User(ctx.request.body);
   ctx.body = await user.save();
+}
+
+async function getUserCards(ctx) {
+  ctx.body = await Card.find({ authorId: ctx.params.authorId });
 }
 
 async function getAllCards(ctx) {
