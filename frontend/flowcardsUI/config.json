@@ -3,10 +3,12 @@
     "url": "http://localhost:3001/",
     "getAllCardsApi": "v2/cards/all",
     "createCardApi": "v2/card/new",
-    "deleteCardApi": "v2/card/delete/",
-    "updateCardApi": "v2/card/update/",
+    "deleteCardApi": "v2/cards/delete/",
+    "updateCardApi": "v2/cards/update/",
     "createUserApi": "v2/user/new",
-    "getUserCardsApi": "v2/user/cards/"
+    "getUserCardsApi": "v2/user/cards/",
+    "signupApi": "signup",
+    "loginApi": "login"
   },
   "cookieName": "_fcid"
 }

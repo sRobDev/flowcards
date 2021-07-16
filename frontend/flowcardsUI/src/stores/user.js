@@ -4,6 +4,7 @@ export const user = createStore(() => {
   user.set('');
 });
 
-export function setUser(uuid) {
-  user.set(uuid);
+export function setUser(data) {
+  console.log('Turbo Console Log: setUser -> data', data);
+  user.set(data);
 }

@@ -1,106 +1,36 @@
 require('dotenv').config();
-const Koa = require('koa');
-const koaBody = require('koa-body');
-const router = require('@koa/router')();
-const cors = require('@koa/cors');
+const express = require('express');
+const cors = require('cors');
 const mongoose = require('mongoose');
-const Card = require('./models/card');
-const Topic = require('./models/topic');
-const User = require('./models/user');
+const passport = require('passport');
 
-const app = module.exports = new Koa();
 const DB_URI = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@flowcards.1v2he.mongodb.net/flowdb?retryWrites=true&w=majority`;
 
-app.use(koaBody());
+mongoose.connect(DB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connection.on('error', error => console.log(error));
+mongoose.Promise = global.Promise;
+
+require('./auth/auth');
+
+const routes = require('./routes/routes');
+const secureRoutes = require('./routes/secure-routes');
+
+const app = express();
+
 app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
-mongoose.connect(DB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => {
-    console.log('[db] Connected to db, starting app...');
-    app.listen(3001);
-  })
-  .catch((err) => console.error(err));
+app.use('/', routes);
 
-router.get('/', hello)
-  .post('/v2/user/new', createUser)
-  .get('/v2/user/:id', getUser)
-  .get('/v2/user/cards/:authorId', getUserCards)
+app.use('/v2', passport.authenticate('jwt', { session: false }), secureRoutes);
 
-  .post('/v2/card/new', createCard)
-  .get('/v2/cards/all', getAllCards)
-  .post('/v2/card/delete/:id', deleteCard)
-  .put('/v2/card/update/:id', updateCard)
-  .get('/v2/card/:id', getCard)
-  
-  .post('/v2/topic/new/:authorId', createTopic)
-  .get('/v2/topics/all/:authorId', getAllTopics)
-  .get('/v2/topic/update/:id', updateTopic)
-  .delete('/v2/topic/delete/:id', deleteTopic)
-  .get('/v2/topic/:id', getTopic);
+app.use(function(err, req, res, next) {
+  res.status(err.status || 500);
+  res.json({ error: err });
+});
 
-app.use(router.routes());
+app.listen(3001, () => {
+  console.log('Express server started');
+});
 
-async function createCard(ctx) {
-  const card = new Card(ctx.request.body);
-
-  ctx.body = await card.save();
-}
-
-async function hello(ctx) {
-  ctx.body = 'Flowcards API is healthy and responding!';
-}
-
-async function getUser(ctx) {
-  ctx.body = await User.findOne({ _id: ctx.params.id });
-}
-
-async function createUser(ctx) {
-  const user = new User(ctx.request.body);
-  ctx.body = await user.save();
-}
-
-async function getUserCards(ctx) {
-  ctx.body = await Card.find({ authorId: ctx.params.authorId });
-}
-
-async function getAllCards(ctx) {
-  ctx.body = await Card.find();
-}
-
-async function getCard(ctx) {
-  ctx.body = await Card.findOne({ _id: ctx.params.id });
-}
-
-async function deleteCard(ctx) {
-  ctx.body = await Card.deleteOne({ _id: ctx.params.id });
-}
-
-async function updateCard(ctx) {
-  let res = await Card.updateOne({ _id: ctx.params.id }, ctx.request.body);
-  if(res.ok) ctx.body = await Card.findOne({ _id: ctx.params.id });
-}
-
-async function getTopic(ctx) {
-  ctx.body = await Card.findOne({ _id: ctx.params.id });
-}
-
-async function getAllTopics(ctx) {
-  ctx.body = await Topic.find({ authorId: ctx.params.authorId });
-}
-
-async function createTopic(ctx) {
-  const topic = new Topic({
-    ...ctx.request.body,
-    authorId: ctx.params.authorId
-  });
-
-  ctx.body = await topic.save();
-}
-
-async function updateTopic(ctx) {
-  ctx.body = Topic.updateOne({ _id: ctx.params.id }, ctx.request.body);
-}
-
-async function deleteTopic(ctx) {
-  ctx.body = await Topic.deleteOne({ _id: ctx.params.id });
-}

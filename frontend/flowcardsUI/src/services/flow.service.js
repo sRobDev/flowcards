@@ -8,8 +8,46 @@ const {
   createCardApi,
   deleteCardApi,
   createUserApi,
-  getUserCardsApi
+  getUserCardsApi,
+  signupApi,
+  loginApi
 } = api;
+
+function register(data) {
+  try {
+    return fetch(
+      url + signupApi, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      }).then(res => res.json()).then(user => {
+        console.log(user);
+        return user;
+      });
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+function login(data) {
+  try {
+    return fetch(
+      url + loginApi, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      }).then(res => res.json()).then(user => {
+        console.log(user);
+        return user;
+      });
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 function saveCard(data) {  
   try {
@@ -77,4 +115,4 @@ function getUserCards(data) {
   }
 }
 
-export { getAllCards, removeCard, saveCard, updateCard, createUser }
+export { getAllCards, removeCard, saveCard, updateCard, createUser, register, login }
