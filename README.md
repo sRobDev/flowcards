@@ -1,20 +1,10 @@
 # Flowcards (Major Work-in-Progress!)
 Simple and fast flashcards app built for [Digital Ocean's MongoDB Hackathon](https://www.digitalocean.com/mongodb-hackathon/).
 
-## Stack:
-- MongoDB/Mongoose
-- Node/Express
-- Vite
-- React
-- SASS
-- Nanostores
-- Chakra UI
-
-**Hosted On:** Digital Ocean's App Platform and managed MongoDB
-
-## Roadmap:
-**Current functionality:**
-- Registration/Login
+## Features:
+**Current:**
+- Registration/Login, users stored in MongoDB, with password encryption through [bcrypt](https://www.npmjs.com/package/bcrypt)
+- JWT Bearer token auth strategy with protected routes on the front and backend
 - Create/update/delete cards
 - Quiz yourself on your cards
 
@@ -27,6 +17,17 @@ Simple and fast flashcards app built for [Digital Ocean's MongoDB Hackathon](htt
 - Adding cards to topics
 - Search/sort/etc for topics
 
+
+## Stack:
+- MongoDB/Mongoose
+- Node/Express
+- Vite
+- React
+- SASS
+- Nanostores
+- Chakra UI
+
+**Hosted On:** Digital Ocean's App Platform and managed MongoDB
 
 ### Setup
 
@@ -46,5 +47,6 @@ These setup notes are also specifically for working on my hackathon version of t
 ```
 DB_USER=<your_db_user>
 DB_PASS=<your_db_password>
+JWT_SECRET=<your_jwt_secret>
 ```
 4. `npm run dev`
