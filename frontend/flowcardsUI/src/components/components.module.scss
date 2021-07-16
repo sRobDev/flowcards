@@ -1,27 +1,17 @@
-.container {
+.knowledge {
   border-radius: 999px;
   background-color: var(--secondary-brand);
   display: flex;
-  padding: 0.5rem;
+  padding: 1rem;
   position: absolute;
   bottom: 2rem;
-  right: 2rem;
+  left: 2rem;
   border: none;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
   color: var(--primary-background-color);
-
-  span {
-    font-weight: bold;
-    padding: 0 0 0 0.5rem;
-  }
-
-  svg {
-    height: 2rem;
-    width: 2rem;
-  }
 
   &:hover {
     background-color: var(--secondary-brand);

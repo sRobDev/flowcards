@@ -10,13 +10,12 @@ export default function AddCardButton({
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <>
+    <div>
       <button className={container} onClick={onOpen}>
         <CirclePlusIcon />
-        <span>Add Card</span>
       </button>
 
       <EditCardModal onSave={onSave} isOpen={isOpen} onClose={onClose} />
-    </>
+    </div>
   )
 }
