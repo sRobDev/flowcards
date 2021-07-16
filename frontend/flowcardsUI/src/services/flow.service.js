@@ -2,7 +2,6 @@ import { api } from '../../config.json';
 import { fetchCards, addCard, modifyCard } from '../stores/cards';
 
 const {
-  url,
   getAllCardsApi,
   updateCardApi,
   createCardApi,
@@ -12,6 +11,8 @@ const {
   signupApi,
   loginApi
 } = api;
+
+const url = process.env.NODE_ENV === 'production' ? 'https://flowcards-xvz8u.ondigitalocean.app/' : 'http://localhost:3001/';
 
 function register(data) {
   try {
@@ -117,7 +118,7 @@ function createUser(data) {
 function getUserCards() {
   try {
     let { _id } = getUserData();
-    return fetch(url + 'v2/user/' + _id + '/cards', {
+    return fetch(url + 'api/v2/user/' + _id + '/cards', {
       headers: {
         'Authorization': getToken()
       }
