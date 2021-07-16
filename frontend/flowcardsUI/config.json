@@ -1,6 +1,5 @@
 {
-  "api": {
-    "url": "http://localhost:3001/",
+  "prod": {
     "getAllCardsApi": "api/v2/cards/all",
     "createCardApi": "api/v2/cards/new/",
     "deleteCardApi": "api/v2/cards/delete/",
@@ -8,7 +7,19 @@
     "createUserApi": "api/v2/user/new",
     "getUserCardsApi": "api/v2/user/cards/",
     "signupApi": "api/signup",
-    "loginApi": "api/login"
+    "loginApi": "api/login",
+    "logoutApi": "api/logout"
+  },
+  "dev": {
+    "getAllCardsApi": "v2/cards/all",
+    "createCardApi": "v2/cards/new/",
+    "deleteCardApi": "v2/cards/delete/",
+    "updateCardApi": "v2/cards/update/",
+    "createUserApi": "v2/user/new",
+    "getUserCardsApi": "v2/user/cards/",
+    "signupApi": "signup",
+    "loginApi": "login",
+    "logoutApi": "logout"
   },
   "cookieName": "_fcid"
 }

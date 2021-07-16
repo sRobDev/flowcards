@@ -13,7 +13,6 @@ passport.use(
       passwordField: 'password'
     },
     async (email, password, done) => {
-      // console.log('Turbo Console Log: name', name);
       try {
         const user = await UserModel.create({email, password});
 
@@ -33,7 +32,6 @@ passport.use(
       passwordField: 'password'
     },
     async (email, password, done) => {
-      console.log('Turbo Console Log: email', email);
       try {
         const user = await UserModel.findOne({ email });
 

@@ -26,22 +26,26 @@ export default function EditCardModal({title, content, id, isOpen, onClose, inde
       title: cardTitle,
       content: cardContent
     }
-    if(id) await updateCard({
+    if(id) {
+      await updateCard({
         id: id,
         ...payload
       }, index);
-    else await saveCard(payload)
-    handleClose();
+      onClose();
+    } else {
+      await saveCard(payload);
+      clearContent();
+    }
   }
 
-  const handleClose = () => {
+  const clearContent = () => {
     onClose();
     setCardTitle('');
     setCardContent('');
   }
 
   return (
-    <Modal returnFocusOnClose={false} blockScrollOnMount={true} isOpen={isOpen} onClose={onClose}>
+    <Modal returnFocusOnClose={false} blockScrollOnMount isOpen={isOpen} onClose={onClose} isCentered>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Add a new card</ModalHeader>

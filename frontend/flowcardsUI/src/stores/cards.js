@@ -6,7 +6,7 @@ export const cards = createStore(async () => {
 
 export async function fetchCards() {
   let res = await getUserCards();
-  if(res.length) cards.set(res);
+  if(res) cards.set(res);
 }
 
 export function setCards(data) {  

@@ -44,7 +44,7 @@ router.get(
 );
 
 router.get(
-  '/user/:id/cards',
+  '/user/cards/:id',
   async (req, res) => {
     try {
       const cards = await CardModel.find({ authorId: req.params.id });

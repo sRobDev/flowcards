@@ -1,5 +1,7 @@
-import { api } from '../../config.json';
-import { fetchCards, addCard, modifyCard } from '../stores/cards';
+import { prod, dev } from '../../config.json';
+import { fetchCards, addCard, modifyCard, setCards } from '../stores/cards';
+
+const isProd = import.meta.env.PROD;
 
 const {
   getAllCardsApi,
@@ -9,10 +11,11 @@ const {
   createUserApi,
   getUserCardsApi,
   signupApi,
-  loginApi
-} = api;
+  loginApi,
+  logoutApi
+} = isProd ? prod : dev;
 
-const url = process.env.NODE_ENV === 'production' ? 'https://flowcards-xvz8u.ondigitalocean.app/' : 'http://localhost:3001/';
+const url = isProd ? 'https://flowcards-xvz8u.ondigitalocean.app/' : 'http://localhost:3001/';
 
 function register(data) {
   try {
@@ -23,10 +26,7 @@ function register(data) {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
-      }).then(res => res.json()).then(user => {
-        console.log(user);
-        return user;
-      });
+      }).then(res => res.json()).then(user => user);
   } catch (error) {
     console.error(error);
   }
@@ -41,10 +41,25 @@ function login(data) {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
-      }).then(res => res.json()).then(user => {
-        console.log(user);
-        return user;
-      });
+      }).then(res => res.json()).then(user => user);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+function logout() {
+  try {
+    return fetch(
+      url + logoutApi
+    ).then(res => {
+      localStorage.removeItem('fc_jwt');
+      localStorage.removeItem('fc_ud');
+      setCards([]);
+      return {
+        message: res,
+        success: true
+      }
+    });
   } catch (error) {
     console.error(error);
   }
@@ -95,7 +110,7 @@ function removeCard({ _id }) {
       headers: {
         'Authorization': getToken()
       }
-    }).then(res => res.json()).then(data => fetchCards());
+    }).then(res => fetchCards());
   } catch (error) {
     console.error(error);
   }
@@ -118,7 +133,7 @@ function createUser(data) {
 function getUserCards() {
   try {
     let { _id } = getUserData();
-    return fetch(url + 'api/v2/user/' + _id + '/cards', {
+    return fetch(url + getUserCardsApi + _id, {
       headers: {
         'Authorization': getToken()
       }
@@ -136,4 +151,4 @@ function getToken() {
   return 'Bearer ' + localStorage.getItem('fc_jwt');
 }
 
-export { getAllCards, removeCard, saveCard, updateCard, createUser, register, login, getUserCards }
+export { getAllCards, removeCard, saveCard, updateCard, createUser, register, login, logout, getUserCards }
