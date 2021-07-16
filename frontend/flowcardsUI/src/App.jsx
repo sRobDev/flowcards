@@ -6,74 +6,52 @@ import CardList from './components/CardList';
 import AddCardButton from './components/AddCardButton/AddCardButton';
 import LoginModal from './components/LoginModal';
 import { saveCard } from './services/flow.service';
-// import { useRoutes, navigate } from '@patched/hookrouter';
+import { isAuthenticated } from './services/auth.service';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
-  useHistory,
   Redirect
 } from "react-router-dom";
 
 const saveNewCard = async (data) => await saveCard(data);
 
-// New routes can be declared here, with the components they point to
-// const routes = {
-//   '/': () => (
-    // <>
-    //   <AddCardButton onSave={(data) => saveNewCard(data)}/>
-    // </>
-//   ),
-//   '/cards': () => (
-    // <>
-    //   <CardList />
-    //   <AddCardButton onSave={(data) => saveNewCard(data)}/>
-    // </>
-//   )
-// };
+function PrivateRoute({ children, ...rest }) {
+  return (
+    <Route {...rest} render={ ({ location }) => {
+      return isAuthenticated() ? children : <Redirect to={{ pathname: '/login', state: { from: location }}}/>
+    }}/>
+  )
+}
 
-const Routes = ({token}) => {
+const Routes = () => {
   return (
     <Switch>
-      <Route exact path="/">
+      <Route exact path="/login">
         <>
-          <AddCardButton onSave={(data) => saveNewCard(data)}/>
-          {token && <Redirect to={{pathname: '/cards'}} />}
+          <LoginModal isOpen={true} onClose={() => {}}/>
         </>
       </Route>
-      <Route exact path="/cards">
+      <PrivateRoute exact path="/">
         <>
+          <Navbar />
           <CardList />
           <AddCardButton onSave={(data) => saveNewCard(data)}/>
         </>
-      </Route>
+      </PrivateRoute>
     </Switch>
   )
 }
 
 
 function App() {
-  const token = localStorage.getItem('fc_jwt');
-  const [isOpen, setIsOpen] = useState(!token);
-  
-  const onClose = () => setIsOpen(false);
-
-  if(token) {
-    let user = jwt_decode(token).user;
-    localStorage.setItem('fc_ud', JSON.stringify(user));
-  }
-
   return (
     <Router>
       <div className="App">
-        <Navbar />
-        <LoginModal isOpen={isOpen} onClose={onClose}/>
-        <Routes token={token}/>
+        <Routes />
         {/* {content} The components from the routes declared above will be rendered here */}
       </div>
     </Router>
-    
   )
 }
 

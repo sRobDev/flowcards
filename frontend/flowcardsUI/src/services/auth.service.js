@@ -1,0 +1,1 @@
+export const isAuthenticated = () => !!localStorage.getItem('fc_jwt');

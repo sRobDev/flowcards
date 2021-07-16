@@ -21,6 +21,14 @@ router.post(
   }
 );
 
+router.get(
+  '/logout',
+  async (req, res) => {
+    req.logout();
+    return res.json();
+  }
+)
+
 router.post(
   '/login',
   async (req, res, next) => {

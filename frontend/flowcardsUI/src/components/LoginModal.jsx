@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { register, login } from '../services/flow.service';
-import { useHistory } from 'react-router-dom';
+import { Redirect, useLocation } from 'react-router-dom';
 import { 
   Modal,
   ModalOverlay,
@@ -18,7 +18,8 @@ import {
 } from '@chakra-ui/react';
 
 export default function LoginModal({isOpen, onClose}) {
-  const history = useHistory();
+  const { state } = useLocation();
+  const [redirectToReferrer, setRedirectToReferrer] = useState(false);
   const [newUser, setNewUser] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -36,8 +37,10 @@ export default function LoginModal({isOpen, onClose}) {
     if(!token) return console.error('Login failed');
     localStorage.setItem('fc_jwt', token);
     localStorage.setItem('fc_ud', JSON.stringify(user));
-    history.push('/cards');
+    setRedirectToReferrer(true);
   }
+
+  if(redirectToReferrer) return <Redirect to={state?.from || '/'} />
   
   return (
     <Modal isOpen={isOpen}>
