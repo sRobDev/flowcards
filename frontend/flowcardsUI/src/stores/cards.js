@@ -1,16 +1,16 @@
 import { createStore, getValue } from 'nanostores';
-import { getAllCards } from '../services/flow.service';
+import { getUserCards } from '../services/flow.service';
 export const cards = createStore(async () => {
   cards.set([]);
-  // let res = await getAllCards();
-  // if(res.length) cards.set(res);  
-  // else cards.set([]);
-  // return () => {};
 });
 
 export async function fetchCards() {
-  let res = await getAllCards();
+  let res = await getUserCards();
   if(res.length) cards.set(res);
+}
+
+export function setCards(data) {  
+  cards.set(data);
 }
 
 export function addCard(data) {

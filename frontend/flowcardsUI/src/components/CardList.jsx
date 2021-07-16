@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import Card from './Card/Card';
-import { cards as cardsList, fetchCards, addCard } from '../stores/cards'
-import { removeCard } from '../services/flow.service';
 import { useStore } from 'nanostores/react';
+import { user as storeUser } from '../stores/user';
+import Card from './Card/Card';
+import { cards as cardsList, fetchCards, setCards as setCardStore } from '../stores/cards'
+import { removeCard, getUserCards } from '../services/flow.service';
 
 export default function() {
   const list = useStore(cardsList);
@@ -17,7 +18,11 @@ export default function() {
   }, [list]);
   
   useEffect(() => {
-    fetchCards();
+    async function fetchData() {
+      const userCards = await getUserCards();
+      setCardStore(userCards);
+    }
+    fetchData();
   }, []);
 
   return (
