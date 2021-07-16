@@ -1,11 +1,8 @@
 import React, { useState } from 'react'
-import jwt_decode from 'jwt-decode';
 import './App.css'
 import Navbar from './components/Navbar/Navbar';
 import CardList from './components/CardList';
-import AddCardButton from './components/AddCardButton/AddCardButton';
 import LoginModal from './components/LoginModal';
-import { saveCard } from './services/flow.service';
 import { isAuthenticated } from './services/auth.service';
 import {
   BrowserRouter as Router,
@@ -13,8 +10,6 @@ import {
   Route,
   Redirect
 } from "react-router-dom";
-
-const saveNewCard = async (data) => await saveCard(data);
 
 function PrivateRoute({ children, ...rest }) {
   return (
@@ -36,7 +31,6 @@ const Routes = () => {
         <>
           <Navbar />
           <CardList />
-          <AddCardButton onSave={(data) => saveNewCard(data)}/>
         </>
       </PrivateRoute>
     </Switch>
@@ -49,7 +43,6 @@ function App() {
     <Router>
       <div className="App">
         <Routes />
-        {/* {content} The components from the routes declared above will be rendered here */}
       </div>
     </Router>
   )

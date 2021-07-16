@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useStore } from 'nanostores/react';
-import { user as storeUser } from '../stores/user';
 import Card from './Card/Card';
 import { cards as cardsList, fetchCards, setCards as setCardStore } from '../stores/cards'
 import { removeCard, getUserCards } from '../services/flow.service';
+import { Flex } from '@chakra-ui/react';
 
 export default function() {
   const list = useStore(cardsList);
@@ -26,10 +26,14 @@ export default function() {
   }, []);
 
   return (
-    <div className="card-row">
+    <Flex 
+      direction={{ base: 'column', md: 'row'}}
+      align={{ base: 'center', md: 'flex-start'}}
+      wrap={{ base: 'nowrap', md: 'wrap'}}
+      justify={{ base: 'center', md: 'flex-start'}}>
       {cards && cards.map((card, idx) => {
-        return <Card index={idx} {...card} onRemove={() => deleteCard(idx)} key={idx} />
+        return <Card controls index={idx} {...card} onRemove={() => deleteCard(idx)} key={idx} />
       })}
-    </div>
+    </Flex>
   );
 }

@@ -28,4 +28,41 @@ const CirclePlusIcon = () => (
   </svg>
 )
 
-export { SearchIcon, DeleteIcon, EditIcon, CirclePlusIcon };
+const RewindIcon = () => (
+  <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M16 15.8603L19.25 18.25V5.75L16 8.13971"></path>
+    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M4.75 12L13.25 5.75V18.25L4.75 12Z"></path>
+  </svg>
+)
+
+const ForwardIcon = () => (
+  <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M8 15.8603L4.75 18.25V5.75L8 8.13971"></path>
+    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19.25 12L10.75 5.75V18.25L19.25 12Z"></path>
+  </svg>
+)
+
+const QuestionIcon = () => (
+  <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19.25 12C19.25 16.0041 16.0041 19.25 12 19.25C7.99594 19.25 4.75 16.0041 4.75 12C4.75 7.99594 7.99594 4.75 12 4.75C16.0041 4.75 19.25 7.99594 19.25 12Z"></path>
+    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9.75 10C9.75 10 10 7.75 12 7.75C14 7.75 14.25 9 14.25 10C14.25 10.7513 13.8266 11.5027 12.9798 11.8299C12.4647 12.0289 12 12.4477 12 13V13.25"></path>
+    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" d="M12.5 16C12.5 16.2761 12.2761 16.5 12 16.5C11.7239 16.5 11.5 16.2761 11.5 16C11.5 15.7239 11.7239 15.5 12 15.5C12.2761 15.5 12.5 15.7239 12.5 16Z"></path>
+  </svg>
+)
+
+const PlayIcon = () => (
+  <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M18.25 12L5.75 5.75V18.25L18.25 12Z"></path>
+  </svg>
+)
+
+const LogOutIcon = () => (
+  <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M15.75 8.75L19.25 12L15.75 15.25"></path>
+    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 12H10.75"></path>
+    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M15.25 4.75H6.75C5.64543 4.75 4.75 5.64543 4.75 6.75V17.25C4.75 18.3546 5.64543 19.25 6.75 19.25H15.25"></path>
+  </svg>
+
+)
+
+export { SearchIcon, DeleteIcon, EditIcon, CirclePlusIcon, QuestionIcon, RewindIcon, ForwardIcon, PlayIcon, LogOutIcon };
