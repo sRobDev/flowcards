@@ -51,10 +51,11 @@ function login(data) {
 
 function saveCard(data) {  
   try {
-    return fetch(url + createCardApi, { 
+    return fetch(url + createCardApi + getUserData()._id, { 
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': getToken()
       },
       body: JSON.stringify(data)
      }).then(res => res.json()).then(card => fetchCards());
@@ -68,7 +69,8 @@ function updateCard(data, index) {
     return fetch(url + updateCardApi + data.id, { 
       method:'PUT',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': getToken()
       },
       body: JSON.stringify(data)
      }).then(res => res.json()).then(card => fetchCards());
@@ -87,7 +89,12 @@ function getAllCards() {
 
 function removeCard({ _id }) {
   try {
-    return fetch(url + deleteCardApi + _id, { method: 'POST' }).then(res => res.json()).then(data => fetchCards());
+    return fetch(url + deleteCardApi + _id, { 
+      method: 'DELETE', 
+      headers: {
+        'Authorization': getToken()
+      }
+    }).then(res => res.json()).then(data => fetchCards());
   } catch (error) {
     console.error(error);
   }
@@ -107,12 +114,25 @@ function createUser(data) {
   }
 }
 
-function getUserCards(data) {
+function getUserCards() {
   try {
-    return fetch(url + getUserCardsApi).then(res => res.json()).then(data => data);
+    let { _id } = getUserData();
+    return fetch(url + 'v2/user/' + _id + '/cards', {
+      headers: {
+        'Authorization': getToken()
+      }
+    }).then(res => res.json()).then(data => data);
   } catch (e) {
     console.error(e);
   }
 }
 
-export { getAllCards, removeCard, saveCard, updateCard, createUser, register, login }
+function getUserData() {
+  return JSON.parse(localStorage.getItem('fc_ud'));
+}
+
+function getToken() {
+  return 'Bearer ' + localStorage.getItem('fc_jwt');
+}
+
+export { getAllCards, removeCard, saveCard, updateCard, createUser, register, login, getUserCards }

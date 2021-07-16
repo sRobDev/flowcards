@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { register, login } from '../services/flow.service';
+import { useHistory } from 'react-router-dom';
 import { 
   Modal,
   ModalOverlay,
@@ -17,6 +18,7 @@ import {
 } from '@chakra-ui/react';
 
 export default function LoginModal({isOpen, onClose}) {
+  const history = useHistory();
   const [newUser, setNewUser] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -34,6 +36,7 @@ export default function LoginModal({isOpen, onClose}) {
     if(!token) return console.error('Login failed');
     localStorage.setItem('fc_jwt', token);
     localStorage.setItem('fc_ud', JSON.stringify(user));
+    history.push('/cards');
   }
   
   return (
@@ -46,11 +49,11 @@ export default function LoginModal({isOpen, onClose}) {
             <Text fontSize="xlg">Please {newUser ? 'register' : 'log in'}!</Text>
             <FormControl mt={4}>
               <FormLabel>Email</FormLabel>
-              <Input variant="solid" size="lg" placeholder="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+              <Input variant="filled" size="lg" placeholder="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
             </FormControl>
             <FormControl mt={4}>
               <FormLabel>Password</FormLabel>
-              <Input variant="solid" type="password" size="lg" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+              <Input variant="filled" type="password" size="lg" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
             </FormControl>
             { newUser ? (
               <Text fontSize="sm">Already have an account? Please <Link href="#" color="green" onClick={() => setNewUser(false)}>login!</Link></Text>
